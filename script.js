@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     function addIncome(e) {
-        e.preventDefault();
+        // e.preventDefault();
              const amount = parseFloat(document.getElementById('incomeAmount').value);
 
         const newIncome = {
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function addExpense(e) {
-        e.preventDefault();
+        // e.preventDefault();
              const amount = parseFloat(document.getElementById('expenseAmount').value);
 
         const newExpense = {
