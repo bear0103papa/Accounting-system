@@ -39,10 +39,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 responsive: true,
                 scales: {
                     x: {
-                        
+                        beginAtZero: true
                     },
                     y: {
-                  
                         beginAtZero: true
                     }
                 }
@@ -64,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
             row.insertCell(2).textContent = income.amount.toFixed(2);
             row.insertCell(3).textContent = income.category;
             row.insertCell(4).textContent = income.date;
-                row.insertCell(5).textContent = income.tax.toFixed(0);
+            row.insertCell(5).textContent = income.tax.toFixed(0);
             row.insertCell(6).textContent = income.sale.toFixed(0);
         });
 
@@ -85,83 +84,81 @@ document.addEventListener('DOMContentLoaded', function() {
         updateTables();
     }
 
-  function calculateTaxAndSale(amount) {
-        const tax = Math.round(amount/1.05*0.05);
-        const sale = Math.round(amount/1.05);
-        return { tax, sale };}
-          
+    function calculateTaxAndSale(amount) {
+        const tax = Math.round(amount / 1.05 * 0.05);
+        const sale = Math.round(amount / 1.05);
+        return { tax, sale };
+    }
   
-   function handleIncomeAmountInput() {
+    function handleIncomeAmountInput() {
         const amount = parseFloat(document.getElementById('incomeAmount').value);
         if (!isNaN(amount)) {
-               const { tax, sale } = calculateTaxAndSale(amount);
+            const { tax, sale } = calculateTaxAndSale(amount);
             document.getElementById('incomeTax').value = tax;
             document.getElementById('incomeSale').value = sale;
-        }}
-           function handleExpenseAmountInput() {
+        }
+    }
+
+    function handleExpenseAmountInput() {
         const amount = parseFloat(document.getElementById('expenseAmount').value);
         if (!isNaN(amount)) {
             const { tax, sale } = calculateTaxAndSale(amount);
             document.getElementById('expenseTax').value = tax;
             document.getElementById('expenseSale').value = sale;
-        }}
-
+        }
+    }
 
     function addIncome(e) {
         e.preventDefault();
-             const amount = parseFloat(document.getElementById('incomeAmount').value);
+        const amount = parseFloat(document.getElementById('incomeAmount').value);
         const newIncome = {
             customerName: document.getElementById('customerName').value,
             customerID: document.getElementById('customerID').value,
-            amount: parseFloat(document.getElementById('incomeAmount').value),
+            amount: amount,
             category: document.getElementById('incomeCategory').value,
-            date: document.getElementById('incomeDate').value, // 使用用戶輸入的日期
-                   tax: Math.round(amount/1.05*0.05),
-           sale: Math.round(amount/1.05)
+            date: document.getElementById('incomeDate').value,
+            tax: Math.round(amount / 1.05 * 0.05),
+            sale: Math.round(amount / 1.05)
         };
         incomeData.push(newIncome);
         updateAll();
-        this.reset();
+        document.getElementById('incomeForm').reset();
         console.log('收入已記錄:', newIncome);
         alert('收入已記錄！');
-              const today = new Date().toISOString().split('T')[0];
+        const today = new Date().toISOString().split('T')[0];
         document.getElementById('incomeDate').value = today;
     }
 
     function addExpense(e) {
         e.preventDefault();
-             const amount = parseFloat(document.getElementById('expenseAmount').value);
-
+        const amount = parseFloat(document.getElementById('expenseAmount').value);
         const newExpense = {
             vendorName: document.getElementById('vendorName').value,
             vendorID: document.getElementById('vendorID').value,
-            amount: parseFloat(document.getElementById('expenseAmount').value),
+            amount: amount,
             category: document.getElementById('expenseCategory').value,
-            date: document.getElementById('expenseDate').value, // 使用用戶輸入的日期
-                   tax: Math.round(amount/1.05*0.05),
-           sale: Math.round(amount/1.05)
+            date: document.getElementById('expenseDate').value,
+            tax: Math.round(amount / 1.05 * 0.05),
+            sale: Math.round(amount / 1.05)
         };
         expenseData.push(newExpense);
         updateAll();
-        this.reset();
+        document.getElementById('expenseForm').reset();
         console.log('支出已記錄:', newExpense);
         alert('支出已記錄！');
-      const today = new Date().toISOString().split('T')[0];
-    document.getElementById('expenseDate').value = today;
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('expenseDate').value = today;
     }
 
-  
-  const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split('T')[0];
     document.getElementById('incomeDate').value = today;
     document.getElementById('expenseDate').value = today;
-  
-  
-   document.getElementById('incomeAmount').addEventListener('input', handleIncomeAmountInput);
-   document.getElementById('expenseAmount').addEventListener('input', handleExpenseAmountInput);
-  
+
+    document.getElementById('incomeAmount').addEventListener('input', handleIncomeAmountInput);
+    document.getElementById('expenseAmount').addEventListener('input', handleExpenseAmountInput);
+
     document.getElementById('incomeForm').addEventListener('submit', addIncome);
     document.getElementById('expenseForm').addEventListener('submit', addExpense);
 
-    // 初始化
     updateAll();
 });
