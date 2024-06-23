@@ -107,87 +107,49 @@ document.addEventListener('DOMContentLoaded', function() {
         }}
 
 
-    // function addIncome(e) {
-    //     e.preventDefault();
-    //          const amount = parseFloat(document.getElementById('incomeAmount').value);
-
-    //     const newIncome = {
-    //         customerName: document.getElementById('customerName').value,
-    //         customerID: document.getElementById('customerID').value,
-    //         amount: parseFloat(document.getElementById('incomeAmount').value),
-    //         category: document.getElementById('incomeCategory').value,
-    //         date: document.getElementById('incomeDate').value, // 使用用戶輸入的日期
-    //                tax: Math.round(amount/1.05*0.05),
-    //        sale: Math.round(amount/1.05)
-    //     };
-    //     incomeData.push(newIncome);
-    //     updateAll();
-    //     this.reset();
-    //     console.log('收入已記錄:', newIncome);
-    //     alert('收入已記錄！');
-    //           const today = new Date().toISOString().split('T')[0];
-    //     document.getElementById('incomeDate').value = today;
-    // }
-
-    // function addExpense(e) {
-    //     e.preventDefault();
-    //          const amount = parseFloat(document.getElementById('expenseAmount').value);
-
-    //     const newExpense = {
-    //         vendorName: document.getElementById('vendorName').value,
-    //         vendorID: document.getElementById('vendorID').value,
-    //         amount: parseFloat(document.getElementById('expenseAmount').value),
-    //         category: document.getElementById('expenseCategory').value,
-    //         date: document.getElementById('expenseDate').value, // 使用用戶輸入的日期
-    //                tax: Math.round(amount/1.05*0.05),
-    //        sale: Math.round(amount/1.05)
-    //     };
-    //     expenseData.push(newExpense);
-    //     updateAll();
-    //     this.reset();
-    //     console.log('支出已記錄:', newExpense);
-    //     alert('支出已記錄！');
-    //   const today = new Date().toISOString().split('T')[0];
-    // document.getElementById('expenseDate').value = today;
-    // }
     function addIncome(e) {
-    e.preventDefault(); // Prevent form submission
-    const amount = parseFloat(document.getElementById('incomeAmount').value);
-    const newIncome = {
-        customerName: document.getElementById('customerName').value,
-        customerID: document.getElementById('customerID').value,
-        amount: parseFloat(document.getElementById('incomeAmount').value),
-        category: document.getElementById('incomeCategory').value,
-        date: document.getElementById('incomeDate').value,
-        tax: Math.round(amount / 1.05 * 0.05),
-        sale: Math.round(amount / 1.05)
-    };
-    incomeData.push(newIncome);
-    updateAll();
-    this.reset(); // Reset form fields
-    console.log('收入已記錄:', newIncome); // Debugging message
-    alert('收入已記錄！'); // Inform the user
-}
+        e.preventDefault();
+             const amount = parseFloat(document.getElementById('incomeAmount').value);
 
-function addExpense(e) {
-    e.preventDefault(); // Prevent form submission
-    const amount = parseFloat(document.getElementById('expenseAmount').value);
-    const newExpense = {
-        vendorName: document.getElementById('vendorName').value,
-        vendorID: document.getElementById('vendorID').value,
-        amount: parseFloat(document.getElementById('expenseAmount').value),
-        category: document.getElementById('expenseCategory').value,
-        date: document.getElementById('expenseDate').value,
-        tax: Math.round(amount / 1.05 * 0.05),
-        sale: Math.round(amount / 1.05)
-    };
-    expenseData.push(newExpense);
-    updateAll();
-    this.reset(); // Reset form fields
-    console.log('支出已記錄:', newExpense); // Debugging message
-    alert('支出已記錄！'); // Inform the user
-}
+        const newIncome = {
+            customerName: document.getElementById('customerName').value,
+            customerID: document.getElementById('customerID').value,
+            amount: parseFloat(document.getElementById('incomeAmount').value),
+            category: document.getElementById('incomeCategory').value,
+            date: document.getElementById('incomeDate').value, // 使用用戶輸入的日期
+                   tax: Math.round(amount/1.05*0.05),
+           sale: Math.round(amount/1.05)
+        };
+        incomeData.push(newIncome);
+        updateAll();
+        this.reset();
+        console.log('收入已記錄:', newIncome);
+        alert('收入已記錄！');
+              const today = new Date().toISOString().split('T')[0];
+        document.getElementById('incomeDate').value = today;
+    }
 
+    function addExpense(e) {
+        e.preventDefault();
+             const amount = parseFloat(document.getElementById('expenseAmount').value);
+
+        const newExpense = {
+            vendorName: document.getElementById('vendorName').value,
+            vendorID: document.getElementById('vendorID').value,
+            amount: parseFloat(document.getElementById('expenseAmount').value),
+            category: document.getElementById('expenseCategory').value,
+            date: document.getElementById('expenseDate').value, // 使用用戶輸入的日期
+                   tax: Math.round(amount/1.05*0.05),
+           sale: Math.round(amount/1.05)
+        };
+        expenseData.push(newExpense);
+        updateAll();
+        this.reset();
+        console.log('支出已記錄:', newExpense);
+        alert('支出已記錄！');
+      const today = new Date().toISOString().split('T')[0];
+    document.getElementById('expenseDate').value = today;
+    }
 
   
   const today = new Date().toISOString().split('T')[0];
