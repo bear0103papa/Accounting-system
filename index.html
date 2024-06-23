@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人記帳系統</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Arial, serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #0A2342;
+            color: #E7CBA9;
+        }
+        header {
+            background-color: #0A2342;
+            color: #E7CBA9;
+            text-align: center;
+            padding: 1rem;
+            font-size: 2rem;
+            border-bottom: 4px solid #C5A880;
+        }
+        nav {
+            background-color: #0A2342;
+            color: #E7CBA9;
+            text-align: center;
+            padding: 10px 0;
+        }
+        nav ul {
+            padding: 0;
+            list-style: none;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: #E7CBA9;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        main {
+            padding: 20px;
+        }
+        section {
+            background-color: #102542;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-left: 10px solid #C5A880;
+        }
+        form {
+            display: grid;
+            gap: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #E7CBA9;
+            color: #0A2342;
+        }
+        button {
+            background-color: #C5A880;
+            color: #0A2342;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #B08A5B;
+        }
+        #chartContainer {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            color: #E7CBA9;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #C5A880;
+            color: #0A2342;
+        }
+        tr:nth-child(even) {
+            background-color: #1E3D58;
+        }
+    </style>
+</head>
+  
+<body>
+    <header>
+        <h1>個人記帳系統</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#income">記錄收入</a></li>
+            <li><a href="#expense">記錄支出</a></li>
+            <li><a href="#report">月報表</a></li>
+        </ul>
+    </nav>
+
+    <main>
+      <section id="report">
+            <h2>月報表</h2>
+            <div id="chartContainer">
+                <canvas id="financeChart"></canvas>
+            </div>
+                </section>
+
+        <section id="income">
+            <h2>記錄收入</h2>
+            <form id="incomeForm">
+                <label for="customerName">客戶名稱:</label>
+                <input type="text" id="customerName" required>
+
+                <label for="customerID">客戶統編:</label>
+                <input type="text" id="customerID" required>
+
+                <label for="incomeAmount">金額:</label>
+                <input type="number" id="incomeAmount" required>
+
+                <label for="incomeCategory">收入類別:</label>
+                <input type="text" id="incomeCategory" placeholder="輸入收入類別" required>
+
+                <label for="incomeDate">日期:</label>
+                <input type="date" id="incomeDate" required>
+
+                <label for="incomeTax">稅額:</label>
+                <input type="number" id="incomeTax" readonly>
+
+                <label for="incomeSale">銷售額:</label>
+                <input type="number" id="incomeSale" readonly>
+
+                <label for="incomePhoto">上傳照片:</label>
+                <input type="file" id="incomePhoto" accept="image/*" capture="camera">
+
+                <button type="submit">提交收入</button>
+            </form>
+        </section>
+
+        <section id="expense">
+            <h2>記錄支出</h2>
+            <form id="expenseForm">
+                <label for="vendorName">廠商名稱:</label>
+                <input type="text" id="vendorName" required>
+
+                <label for="vendorID">廠商統編:</label>
+                <input type="text" id="vendorID" required>
+
+                <label for="expenseAmount">金額:</label>
+                <input type="number" id="expenseAmount" required>
+
+                <label for="expenseCategory">支出類別:</label>
+                <select id="expenseCategory" required>
+                    <option value="">請選擇類別</option>
+                    <option value="進貨成本">進貨成本</option>
+                    <option value="加工費用">加工費用</option>
+                    <option value="直接人工">直接人工</option>
+                    <option value="薪資費用">薪資費用</option>
+                    <option value="伙食費用">伙食費用</option>
+                    <option value="員工退休金費用">員工退休金費用</option>
+                    <option value="勞健保費用">勞健保費用</option>
+                    <option value="租金費用">租金費用</option>
+                    <option value="水電瓦斯費用">水電瓦斯費用</option>
+                    <option value="郵電費用">郵電費用</option>
+                    <option value="交際費用">交際費用</option>
+                    <option value="修繕費用">修繕費用</option>
+                    <option value="保險費用">保險費用</option>
+                    <option value="運費">運費</option>
+                    <option value="交通費">交通費</option>
+                    <option value="雜項費用">雜項費用</option>
+                </select>
+
+                <label for="expenseDate">日期:</label>
+                <input type="date" id="expenseDate" required>
+
+                <label for="expenseTax">稅額:</label>
+                <input type="number" id="expenseTax" readonly>
+
+                <label for="expenseSale">銷售額:</label>
+                <input type="number" id="expenseSale" readonly>
+
+                <label for="expensePhoto">上傳照片:</label>
+                <input type="file" id="expensePhoto" accept="image/*" capture="camera">
+
+                <button type="submit">提交支出</button>
+            </form>
+        </section>
+
+                <section>
+
+            <h3>收入明細</h3>
+            <table id="incomeTable">
+                <thead>
+                    <tr>
+                        <th>客戶名稱</th>
+                        <th>客戶統編</th>
+                        <th>金額</th>
+                        <th>類別</th>
+                        <th>日期</th>
+                        <th>稅額</th>
+                        <th>銷售額</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <h3>支出明細</h3>
+            <table id="expenseTable">
+                <thead>
+                    <tr>
+                        <th>廠商名稱</th>
+                        <th>廠商統編</th>
+                        <th>金額</th>
+                        <th>類別</th>
+                        <th>日期</th>
+                        <th>稅額</th>
+                        <th>銷售額</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>
